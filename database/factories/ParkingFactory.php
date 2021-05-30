@@ -22,11 +22,15 @@ class ParkingFactory extends Factory
      */
     public function definition()
     {
+        $exit_time = $this->faker->dateTimeBetween('now', '+1 day');
+        $parking_fee = $this->faker->numberBetween(3000, 40000);
+
         return [
             "license_plate" => Str::upper(Str::random(6)),
             "unique_code" => Str::random(6),
-            "exit_time" => $this->faker->dateTimeBetween('now', '+1 day'),
-            "parking_fee" => $this->faker->numberBetween(3000, 40000)
+            "exit_time" => $exit_time,
+            "parking_fee" => round($parking_fee, -2, PHP_ROUND_HALF_UP),
+            "updated_at" => $exit_time
         ];
     }
 }

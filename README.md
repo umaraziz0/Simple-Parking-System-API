@@ -14,14 +14,14 @@
 
 All routes tested using Postman API
 
-| Method | URI                             | Visibility |
-| ------ | ------------------------------- | ---------- |
-| GET    | api/admin                       | auth:admin |
-| GET    | api/admin/export                | auth:admin |
-| POST   | api/enter-vehicle               | public     |
-| POST   | api/exit-vehicle                | public     |
-| POST   | api/admin/register              | public     |
-| POST   | api/admin/login                 | public     |
-| POST   | api/admin/logout                | auth:admin |
-| POST   | api/admin/filter-by-date        | auth:admin |
-| POST   | api/admin/filter-by-date/export | auth:admin |
+| Method | URI                             | Visibility | Function                                                        |
+| ------ | ------------------------------- | ---------- | --------------------------------------------------------------- |
+| GET    | api/admin                       | auth:admin | Shows all of the parking data                                   |
+| GET    | api/admin/export                | auth:admin | Exports all of the parking data to a .xlsx file                 |
+| POST   | api/enter-vehicle               | public     | Enters a vehicle into the parking lot                           |
+| POST   | api/exit-vehicle                | public     | Exits a vehicle from the parking lot                            |
+| POST   | api/admin/register              | public     | Registers a new admin                                           |
+| POST   | api/admin/login                 | public     | Admin login                                                     |
+| POST   | api/admin/logout                | auth:admin | Admin logout                                                    |
+| POST   | api/admin/filter-by-date        | auth:admin | Filters parking data by date range                              |
+| POST   | api/admin/filter-by-date/export | auth:admin | Filters parking data by date range and exportss to a .xlsx file |

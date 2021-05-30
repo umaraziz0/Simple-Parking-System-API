@@ -15,7 +15,8 @@ class Parking extends Model
         "license_plate",
         "unique_code",
         "exit_time",
-        "parking_fee"
+        "parking_fee",
+        "updated_at"
     ];
 
     protected $casts = [

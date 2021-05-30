@@ -27,7 +27,7 @@ class ParkingController extends Controller
     }
 
     /**
-     * Exports all parking data
+     * Exports all parking data to .xlsx file
      *
      */
     public function export()
@@ -167,6 +167,7 @@ class ParkingController extends Controller
 
     /**
      * Displays parking records by a given date range
+     * Uses updated_at column as reference
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -176,8 +177,8 @@ class ParkingController extends Controller
         /**
          * Example Request
          * {
-         *   fromDate: "2021-05-30 08:21:16",
-         *   toDate: "2021-05-30 08:50:51",
+         *   fromDate: "2021-05-30",
+         *   toDate: "2021-05-31",
          * }
          */
 
@@ -187,8 +188,10 @@ class ParkingController extends Controller
             "toDate" => "required|date"
         ]);
 
+        $dateRange = [$request->input("fromDate"), $request->input("toDate")];
+
         $results = Parking::query()
-            ->whereBetween("updated_at", [$request->input("fromDate"), $request->input("toDate")])
+            ->whereBetween("updated_at", $dateRange)
             ->get();
 
         if ($results->isEmpty()) {
@@ -199,7 +202,8 @@ class ParkingController extends Controller
     }
 
     /**
-     * Exports parking records by a given date range
+     * Exports parking records by a given date range to .xlsx file
+     * Uses updated_at column as reference
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -209,8 +213,8 @@ class ParkingController extends Controller
         /**
          * Example Request
          * {
-         *   fromDate: "2021-05-30 08:21:16",
-         *   toDate: "2021-05-30 08:50:51",
+         *   fromDate: "2021-05-30",
+         *   toDate: "2021-05-31",
          * }
          */
 

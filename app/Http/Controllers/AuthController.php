@@ -58,9 +58,12 @@ class AuthController extends Controller
 
         // ! Validate login
         $admin = Admins::where("email", $fields["email"])->first();
-        $passwordCheck = Hash::check($fields["password"], $admin->password);
+        if (!$admin) {
+            return response(["message" => "Invalid credentials"], 401);
+        }
 
-        if (!$admin || $passwordCheck) {
+        $passwordCheck = Hash::check($fields["password"], $admin->password);
+        if (!$passwordCheck) {
             return response(["message" => "Invalid credentials"], 401);
         }
 
