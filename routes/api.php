@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ParkingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,14 +16,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Public routes
 Route::post("/enter-vehicle", [ParkingController::class, "store"]);
 Route::post("/exit-vehicle", [ParkingController::class, "exit"]);
 
-Route::get("/admin/parking", [ParkingController::class, "index"]);
-Route::get("/admin/parking/export", [ParkingController::class, "export"]);
-Route::post("/admin/parking/filter-by-date", [ParkingController::class, "showByDateRange"]);
-Route::post("/admin/parking/filter-by-date/export", [ParkingController::class, "exportByDateRange"]);
+Route::post("/admin/register", [AuthController::class, "registerAdmin"]);
+Route::post("/admin/login", [AuthController::class, "loginAdmin"]);
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Protected routes
+Route::middleware("auth:sanctum")->group(function () {
+    Route::get("/admin", [ParkingController::class, "index"]);
+    Route::get("/admin/export", [ParkingController::class, "export"]);
+    Route::post("/admin/filter-by-date", [ParkingController::class, "showByDateRange"]);
+    Route::post("/admin/filter-by-date/export", [ParkingController::class, "exportByDateRange"]);
+
+    Route::post("/admin/logout", [AuthController::class, "logoutAdmin"]);
 });
+
+
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });

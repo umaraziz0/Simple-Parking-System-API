@@ -99,7 +99,7 @@ class ParkingController extends Controller
             "license_plate" => $car->license_plate,
             "entered_at" => $car->created_at,
             "unique_code" => $car->unique_code,
-        ], 200);
+        ], 201);
     }
 
     /**
@@ -119,7 +119,7 @@ class ParkingController extends Controller
 
         // ! Validate license plate input
         $request->validate([
-            "unique_code" => "required|string|exists:parkings",
+            "unique_code" => "required|string|exists:parkings,unique_code",
         ]);
 
         $car = Parking::query()
@@ -232,9 +232,6 @@ class ParkingController extends Controller
             ->dateRange($request->input("fromDate"), $request->input("toDate"))
             ->download("parking-data-by-date.xlsx");
     }
-
-    // TODO: show by license plate
-    // TODO: show by unique id
 
     /**
      * Update the specified resource in storage.
