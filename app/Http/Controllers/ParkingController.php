@@ -7,6 +7,10 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+use App\Exports\ParkingsExport;
+use Maatwebsite\Excel\Facades\Excel;
+
+
 class ParkingController extends Controller
 {
     /**
@@ -16,7 +20,18 @@ class ParkingController extends Controller
      */
     public function index()
     {
-        return Parking::orderBy("updated_at", "desc")->get();
+        $parkingData = Parking::orderBy("updated_at", "desc")->get();
+
+        return response($parkingData, 200);
+    }
+
+    /**
+     * Exports all parking data
+     *
+     */
+    public function export()
+    {
+        return Excel::download(new ParkingsExport, 'parking-data.xlsx');
     }
 
     /**

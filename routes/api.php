@@ -19,6 +19,7 @@ Route::post("/enter-vehicle", [ParkingController::class, "store"]);
 Route::post("/exit-vehicle", [ParkingController::class, "exit"]);
 
 Route::get("/admin/parking", [ParkingController::class, "index"]);
+Route::get("/admin/parking/export", [ParkingController::class, "export"]);
 Route::post("/admin/parking/filter-by-date", [ParkingController::class, "showByDateRange"]);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

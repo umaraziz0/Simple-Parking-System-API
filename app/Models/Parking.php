@@ -17,4 +17,10 @@ class Parking extends Model
         "exit_time",
         "parking_fee"
     ];
+
+    protected $casts = [
+        "exit_time" => 'datetime:Y-m-d H:m:s',
+        "created_at" => 'datetime:Y-m-d H:m:s',
+        "updated_at" => 'datetime:Y-m-d H:m:s',
+    ];
 }
