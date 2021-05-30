@@ -191,7 +191,7 @@ class ParkingController extends Controller
             ->whereBetween("updated_at", [$request->input("fromDate"), $request->input("toDate")])
             ->get();
 
-        if (!$results) {
+        if ($results->isEmpty()) {
             return response(["message" => "No results found between the given date range."], 404);
         }
 
@@ -224,7 +224,7 @@ class ParkingController extends Controller
             ->whereBetween("updated_at", [$request->input("fromDate"), $request->input("toDate")])
             ->get();
 
-        if (!$results) {
+        if ($results->isEmpty()) {
             return response(["message" => "No results found between the given date range."], 404);
         }
 
