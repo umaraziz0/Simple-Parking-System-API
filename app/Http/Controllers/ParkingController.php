@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 use App\Exports\ParkingsExport;
+use App\Exports\ParkingsExportByDate;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -195,6 +196,41 @@ class ParkingController extends Controller
         }
 
         return response($results, 200);
+    }
+
+    /**
+     * Exports parking records by a given date range
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function exportByDateRange(Request $request)
+    {
+        /**
+         * Example Request
+         * {
+         *   fromDate: "2021-05-30 08:21:16",
+         *   toDate: "2021-05-30 08:50:51",
+         * }
+         */
+
+        // ! Validate from and to date inputs
+        $request->validate([
+            "fromDate" => "required|date",
+            "toDate" => "required|date"
+        ]);
+
+        $results = Parking::query()
+            ->whereBetween("updated_at", [$request->input("fromDate"), $request->input("toDate")])
+            ->get();
+
+        if (!$results) {
+            return response(["message" => "No results found between the given date range."], 404);
+        }
+
+        return (new ParkingsExportByDate)
+            ->dateRange($request->input("fromDate"), $request->input("toDate"))
+            ->download("parking-data-by-date.xlsx");
     }
 
     // TODO: show by license plate

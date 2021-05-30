@@ -5,7 +5,6 @@ namespace App\Exports;
 use App\Models\Parking;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 
 class ParkingsExport implements FromCollection, WithHeadings
 {
