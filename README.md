@@ -1,6 +1,6 @@
-# Bounche Backend Test
+# Simple Parking System API
 
-### Mohamad Umar Aziz
+A REST API for a simple parking system.
 
 ### Installation
 
