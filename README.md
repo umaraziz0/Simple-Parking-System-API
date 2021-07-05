@@ -1,6 +1,6 @@
 # Simple Parking System API
 
-A REST API for a simple parking system.
+A REST API for a simple parking system built using Laravel.
 
 ### Installation
 
