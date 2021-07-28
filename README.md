@@ -10,6 +10,11 @@ A REST API for a simple parking system built using Laravel.
 4. Run DB seeder (optional): `php artisan db:seed`
 5. Run built in server: `php artisan serve`
 
+### Authentication
+
+Uses a token-based authentication with Laravel Sanctum.
+
+
 ### Routes
 
 All routes tested using Postman API
